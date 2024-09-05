@@ -1,0 +1,49 @@
+body{
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.calculator{
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    justify-content: center;
+    align-items: center;
+    background-color: gray;
+    height: 300px;
+    width: 250px;
+    border-radius: 5%;
+}
+
+.numberfield{
+    display: block;
+    height: 50px;
+    width: 200px;
+    border: solid gray;
+    border-radius: 5%;
+    background-color: white;
+}
+
+.buttons{
+    display: flex;
+}
+
+.numbers{
+    display: grid;
+    grid-template-rows: 50px 50px 50px;
+    grid-template-columns: 50px 50px 50px;
+}
+
+.operators{
+    display: flex;
+    flex-direction: column;
+}
+
+.operatorbutton{
+    height: 50px;
+    width: 50px;
+}
