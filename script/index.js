@@ -1,70 +1,106 @@
+const calculator = document.querySelector(".calculator");
+const buttons = calculator.querySelector(".buttons");
+const display = document.querySelector(".numberfield");
 
-const numberfield = document.querySelector(".numberfield");
-const operatorbutton = document.querySelector(".operatorbutton");
-const equalbutton = document.querySelector(".equalbutton");
+buttons.addEventListener("click", e => {
+    if (e.target.matches("button")){
+        const button = e.target;
+        const action = button.dataset.action;
+        const buttonContent = button.textContent;
+        const displayedNum = display.textContent;
+        const previousKeyType = calculator.dataset.previousKeyType;
 
-let isItNextNumber = false;
-let number1 = 0;
-let number2 = 0;
-let result = 0;
-let operator = "+";
+        const calculate = (number1, operator, number2) => {
+            console.log("calculating");
+            let result = "";
+            const firstNum = parseFloat(number1);
+            const secondNum = parseFloat(number2);
 
-console.log("hello world");
-
-document.querySelectorAll(".numberbutton").forEach(el =>{
-    el.addEventListener('click', () =>{
-        console.log("pressed");
-        enterNumber(el.value);
-    })
-})
-
-document.querySelectorAll(".operatorbutton").forEach(el =>{
-    el.addEventListener("click", () =>{
-        if(isItNextNumber == false){
-            number1 = parseInt(numberfield.textContent);
-            operator = el.value;
-            console.log(number1);
-            console.log(operator);
-            numberfield.textContent = "";
-            isItNextNumber = true;
-        }else{
-            number2 = parseInt(numberfield.textContent);
-            console.log(number2);
-            Operate();
+            switch(operator){
+                case "add":
+                    result = firstNum + secondNum;
+                    break;
+                case "subtract":
+                    result = firstNum - secondNum;
+                    break;
+                case "multiply":
+                    result = firstNum * secondNum;
+                    break;
+                case "divide":
+                    if(secondNum == 0) {
+                        result = "Divide by zero? Nice try.";
+                        break;
+                    }
+                    result = firstNum / secondNum;
+                    break;
+            }
+            return result;
         }
-    })
-})
 
-equalbutton.addEventListener("click", () => {
-    console.log("operate");
-    number2 = parseInt(numberfield.textContent);
-    Operate();
-})
+        if (!action){
+            if(displayedNum === "0" || previousKeyType === "operator" || previousKeyType === "calculate"){
+                display.textContent = buttonContent;
+                calculator.dataset.previousKeyType = "number";
+            }else{
+                display.textContent = displayedNum + buttonContent;
+            }
+            calculator.dataset.previousKeyType = "number";
+        }
 
+        if(
+            action === "add" ||
+            action === "subtract" ||
+            action === "multiply" ||
+            action === "divide"
+        ){
+            const firstValue = calculator.dataset.firstValue;
+            const operator = calculator.dataset.operator;
+            const secondValue = displayedNum;
 
-function enterNumber(num){
+            if(firstValue && operator && previousKeyType !== "operator"){
+                const calcValue = calculate(firstValue, operator, secondValue);
+                display.textContent = calcValue;
+                calculator.dataset.firstValue = calcValue;
+            }else{
+                calculator.dataset.firstValue = displayedNum;
+            }
+            calculator.dataset.previousKeyType = "operator";
+            calculator.dataset.operator = action;
+        }
 
-        numberfield.textContent += num;
-    
-}
+        if (action === "decimal"){
+            if(!displayedNum.includes(".")){
+                display.textContent = displayedNum + ".";
+            }else if (previousKeyType === "operator"){
+                display.textContent = "0.";
+            }
+            calculator.dataset.previousKeyType = "decimal"; 
+        }
 
-//raw, rework this
-function Operate(){
-    
-    switch(operator){
-        case "+":
-            console.log("plus"); 
-            number1 += number2;
-            numberfield.textContent = "";
-            numberfield.textContent = number1.toString();
-            break;
-        case "-":
-            console.log("minus"); 
-            number1 -= number2;
-            numberfield.textContent = "";
-            numberfield.textContent = number1.toString();
-            break;
-        default:
-            return 0; 
+        if(action === "clear"){
+            calculator.dataset.firstValue = "";
+            calculator.dataset.modValue = "";
+            calculator.dataset.operator = "";
+            calculator.data.previousKeyType = "";
+
+            display.textContent = 0;
+            calculator.dataset.previousKeyType = "clear";
+        }
+
+        if(action === "calculate"){
+            let firstValue = calculator.dataset.firstValue;
+            const operator = calculator.dataset.operator;
+            let secondValue = displayedNum;
+
+            if(firstValue){
+                if(previousKeyType === "calculate"){
+                    firstValue = displayedNum;
+                    secondValue = calculator.dataset.modValue;
+                }
+                display.textContent = calculate(firstValue, operator, secondValue);
+            }
+            calculator.dataset.modValue = secondValue;
+            calculator.dataset.previousKeyType = "calculate";
+        }
     }
-}
+})

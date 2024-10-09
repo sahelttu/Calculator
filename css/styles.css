@@ -13,16 +13,16 @@ body{
     gap: 5px;
     justify-content: center;
     align-items: center;
-    background-color: gray;
+    background-color: #d4d3e8;
     height: 300px;
-    width: 250px;
+    width: 270px;
     border-radius: 5%;
 }
 
 .numberfield{
     display: block;
     height: 50px;
-    width: 200px;
+    width: 250px;
     border: solid gray;
     border-radius: 5%;
     background-color: white;
@@ -43,7 +43,25 @@ body{
     flex-direction: column;
 }
 
-.operatorbutton{
+.numberbutton,
+.operatorbutton,
+.clearbutton{
     height: 50px;
     width: 50px;
+}
+
+.operatorbutton{
+    background-color: #aba9d1;
+}
+
+.numberbutton,
+.clearbutton{
+    background-color: #bdbcd6;
+}
+
+
+.equalbutton{
+    height: 200px;
+    width: 50px;
+    background-color: #8684ba;
 }

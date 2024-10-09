@@ -8,26 +8,32 @@
 </head>
 <body>
     <div class="calculator">
-        <span class="numberfield"></span>
+        <span class="numberfield">0</span>
         <div class="buttons">
             <div class="numbers">
-                <input class="numberbutton" type="button" value="7">
-                <input class="numberbutton" type="button" value="8">
-                <input class="numberbutton" type="button" value="9">
+                <button class="numberbutton" value="7">7</button>
+                <button class="numberbutton" value="8">8</button>
+                <button class="numberbutton" value="9">9</button>
 
-                <input class="numberbutton" type="button" value="4">
-                <input class="numberbutton" type="button" value="5">
-                <input class="numberbutton" type="button" value="6">
+                <button class="numberbutton" value="4">4</button>
+                <button class="numberbutton" value="5">5</button>
+                <button class="numberbutton" value="6">6</button>
 
-                <input class="numberbutton" type="button" value="1">
-                <input class="numberbutton" type="button" value="2">
-                <input class="numberbutton" type="button" value="3">
+                <button class="numberbutton" value="1">1</button>
+                <button class="numberbutton" value="2">2</button>
+                <button class="numberbutton" value="3">3</button>
+
+                <button class="numberbutton" value="0">0</button>
+                <button class="numberbutton" data-action="decimal">.</button>
+                <button class="clearbutton" data-action="clear">AC</button>
             </div>
             <div class="operators">
-                <input class="operatorbutton" type="button" value="+">
-                <input class="operatorbutton" type="button" value="-">
-                <input class="equalbutton" type="button" value="=">
+                <button class="operatorbutton" data-action="add" value="+">+</button>
+                <button class="operatorbutton" data-action="subtract" value="-">-</button>
+                <button class="operatorbutton" data-action="multiply" value="*">&times;</button>
+                <button class="operatorbutton" data-action="divide" value="÷">÷</button>
             </div>
+            <button class="equalbutton" data-action="calculate" value="=">=</button>
         </div>
     </div>
     <script src="./script/index.js"></script>
