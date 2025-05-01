@@ -1,2 +1,2 @@
 # Calculator
-An Odin Project course project.
+A simple calcualtor
